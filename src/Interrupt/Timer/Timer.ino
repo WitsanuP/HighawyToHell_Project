@@ -30,7 +30,7 @@ Serial.begin(9600);
   100 256
   101 1024   max count 65535
   */
-  TCNT1 = 0;//16bit
+  TCNT1 = 0;//16bit counter:MAX 0xFFFF
 
 /*
            time
