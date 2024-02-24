@@ -62,7 +62,7 @@ count = ------------
        PORTD = PORTD & ~0x10;// off led_red
      }
      else{
-       PORTD = PORTD | 0x10;
+       PORTD = PORTD | 0x10;// on led_red
      }
      _delay_ms(100);
     }

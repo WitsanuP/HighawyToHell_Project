@@ -1,0 +1,33 @@
+set registor interrupts
+SREG : global interrupt enable
+bit7 
+or
+sei()
+cli()
+
+config INT0,INT1
+EICRA 
+bit 0-1 INT0 : Low level, Logic change, Falling edge, Rising edge
+bit 2-3 INT1 : Low level, Logic change, Falling edge, Rising edge
+
+EIMSK : External interrupt
+bit0 : enable INT0
+bit1 : enable INT1
+
+EIRR : External interrupt flag register
+bit 0-1
+00 INT0, INT1 : not working
+01 INT0       : working
+10 INT1       : working
+11 INT0, INT1 : working
+
+Interrupt Vector
+1  : INT0 , External interrupt request 0
+2  : INT1 , External interrupt request 1
+13 : Timer/counter1 overflow
+16 : Timer/counter0 overflow
+
+TIMSK0
+bit0 : Enable TMR0 overflow interrupt
+TIMSK1
+bit0 : Enable TMR1 overflow interrupt

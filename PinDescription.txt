@@ -1,6 +1,6 @@
-PD2 Buttom_1    0x02
-PD3 Buttom_2	0x03	
+PD2 Buttom_1    0x04
+PD3 Buttom_2	0x08
 
-PD4 LED_Red	0x04
-PD5 LED_Yellow	0x10
-PD6 LED_Green	0x20
+PD4 LED_Red	0x10
+PD5 LED_Yellow	0x20
+PD6 LED_Green	0x40
