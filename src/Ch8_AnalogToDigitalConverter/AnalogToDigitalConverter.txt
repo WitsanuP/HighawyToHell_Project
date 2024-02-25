@@ -1,0 +1,45 @@
+Analog to Digital Converter
+- 10 bit (1024)
+- Accureacy +- 2 LSB
+- Full-scale Voltage : 5V
+- Conversion Time    : 65-260 us
+- 15 kSPS
+- Input Multiplexer  : A0-A7
+- can use interrupt, when convert finish
+- CLK :50-200kHz
+
+ADC Multiplexer Selection Register
+ADMUX : bit0-3
+0000 ADC0
+0001 ADC1
+0010 ADC2
+0011 ADC3
+0100 ADC4
+0101 ADC5
+0110 ADC6
+0111 ADC7
+
+bit 6-7
+01 AVcc with external capacitor at AREF pin 
+
+
+ADC Control and Status Register
+ADCSRA : bit 6-7
+bit6 ADC Start Conversion
+bit7 ADC Enable
+
+bit 0-2 :ADC Prescaler Select Bits 
+000 Division Factor 1
+001 Division Factor 2
+010 Division Factor 4
+011 Division Factor 8
+100 Division Factor 16
+101 Division Factor 32
+110 Division Factor 64
+111 Division Factor 128
+
+
+output 
+ADCL and ADCH : the ADC Data registor : 10 bit
+ADCH bit 0-1 : 2 bit
+ADCL bit 0-7 : 8 bit
