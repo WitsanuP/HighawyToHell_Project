@@ -1,0 +1,35 @@
+UART Serial
+UCSRnA USART registor
+bit7 : RXCn:USART Receive Complete
+bit6 : TXCn:USART Transmit Complete
+bit5 : UDREn: USART Data Register Empty
+
+bit2 : UPEn : USART Partiy
+bit1 : U2Xn : Double the USART Transmission Speed
+
+
+UCSRnB
+
+UCSRnC : 
+
+
+Baud Rate
+Registor : UBRRnL, UBRRnH
+Registro : UCSRnA
+
+U2Xn = 0 (not Double Speed)(recomment)
+           f_OSC	16000000
+UBRRn = -------- - 1 = ---------- - 1 = 103
+       	 16(BAUD)	16(9600)
+       	 
+U2Xn = 1 (Double Speed)
+           f_OSC
+UBRRn = -------- - 1
+       	 8(BAUD)
+       	 
+       	 
+fix config
+UBRR0  = 103;
+  UCSR0A = 0x00;
+  UCSR0B = 0x18;
+  UCSR0C = 0x06;
