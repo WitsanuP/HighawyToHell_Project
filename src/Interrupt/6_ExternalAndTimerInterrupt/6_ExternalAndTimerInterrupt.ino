@@ -5,7 +5,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-char green = 0;
+char yellow = 0;
 char red   = 0;
 
 ISR(INT0_vect){
@@ -19,8 +19,8 @@ ISR(INT0_vect){
     
 }
 ISR(TIMER1_OVF_vect){
-  green = ~green;
-  if(green == 0){
+  yellow= ~yellow;
+  if(yellow == 0){
     PORTD = PORTD & ~0x20;//off
   }
   else{
