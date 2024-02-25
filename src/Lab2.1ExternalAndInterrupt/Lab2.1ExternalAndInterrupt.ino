@@ -10,28 +10,39 @@
 void serial_begin();
 void serial_putc(char data);
 void serial_puts(char *data);
-//int time_ms(int t);
-uint16_t time_ms(uint16_t t){
-  return t*16000/1024;
-}
+uint32_t time2counter(uint32_t t);
+uint32_t counter2time(uint32_t t);
+
 //LEd green yellow red
 uint8_t led = 0b001;
 uint8_t status_led = 0;  //up or down
-int16_t speed = 0xFFFF-time_ms(200);//65535-3125;
+uint16_t speed = 0xFFFF-1-time2counter(200);//65535-3125;
 char txt[50];
+
 ISR(INT0_vect) {
   status_led = ~status_led;
   if(status_led){
-    sprintf(txt, "Red -> Yellow -> Green : %u ms\n", time_ms(200));
+    sprintf(txt, "Red -> Yellow -> Green : %u ms\n", counter2time(0xFFFF-speed));
     serial_puts(txt);
   }
   else{
-    serial_puts("Green -> Yellow -> Red : ***ms\n");
+    sprintf(txt, "Green -> Yellow -> Red : %u ms\n", counter2time(0xFFFF-speed));
+    serial_puts(txt);
   }
 }
+
 ISR(INT1_vect) {
-speed -= 3125;
- serial_puts("int2");
+ speed -= time2counter(200);
+ 
+ if(counter2time(0xFFFF-speed)>1000)speed = 0xFFFF-1-time2counter(200);
+  if(status_led){
+    sprintf(txt, "Red -> Yellow -> Green : %u ms\n", counter2time(0xFFFF-speed));
+    serial_puts(txt);
+  }
+  else{
+    sprintf(txt, "Green -> Yellow -> Red : %u ms\n", counter2time(0xFFFF-speed));
+    serial_puts(txt);
+  }
 }
 
 
@@ -76,6 +87,7 @@ int main() {
 
   sei();  //turn on global interrupts
 
+
   while (1);
   
 }
@@ -99,4 +111,11 @@ void serial_puts(char *data) {
     while (*data){
        serial_putc(*data++);
     }    
+}
+
+uint32_t time2counter(uint32_t t){
+  return t*16000/1024;
+}
+uint32_t counter2time(uint32_t t){
+  return t*1024/16000;
 }
