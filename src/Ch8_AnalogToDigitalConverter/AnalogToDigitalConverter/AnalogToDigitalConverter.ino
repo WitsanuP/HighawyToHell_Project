@@ -57,8 +57,11 @@ int main(void)
 
    
   while(1) {
+    dot(0,0b11011010);
+    dot(1,0b11011010);
+    dot(2,0b10011011);
+    dot(4,0xFF);
     
-    dot(2,7);
     adc0 = adc_read(1);
     //PORTD = adc0    & 0b11111111;    
     //PORTB = adc0>>8 & 0b00000011;
