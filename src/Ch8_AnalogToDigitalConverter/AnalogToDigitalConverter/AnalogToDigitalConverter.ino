@@ -1,9 +1,21 @@
-//it not working
 #define F_CPU 16000000UL
 
 #include  <avr/io.h>
 #include  <util/delay.h>
 #include "dot.h"
+#include "print.h"
+char text[50];
+
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte)  \
+  ((byte) & 0x80 ? '1' : '0'), \
+  ((byte) & 0x40 ? '1' : '0'), \
+  ((byte) & 0x20 ? '1' : '0'), \
+  ((byte) & 0x10 ? '1' : '0'), \
+  ((byte) & 0x08 ? '1' : '0'), \
+  ((byte) & 0x04 ? '1' : '0'), \
+  ((byte) & 0x02 ? '1' : '0'), \
+  ((byte) & 0x01 ? '1' : '0') 
 void adc_init()
 {
     // AREF = AVcc
@@ -35,31 +47,28 @@ int adc_read(char ch)
 
 int main(void)
 {
-  Serial.begin(9600);
-  Serial.println("mine");
-  
+  serial_begin();
+  serial_puts("start\n");
+  dot_init();
+  dot_clear();
   int adc0;
-  dot_init(); 
-  Serial.println("hello");
+
   adc_init();
-  //DDRD = 0x70; // PortD Output
-   Serial.println("jame");
-  
+
+   
   while(1) {
     
-     Serial.println("hi");
-     //dot_point(2);
-     //Blend285(200);
-    dot(1,63);
-    adc0 = adc_read(0);
+    dot(2,7);
+    adc0 = adc_read(1);
     //PORTD = adc0    & 0b11111111;    
     //PORTB = adc0>>8 & 0b00000011;
-    _delay_ms(500); 
-    /*
     dot(6,adc0>>8);  
     dot(7,adc0);
-    Serial.println(adc0,BIN);
-    */
+    sprintf(text, BYTE_TO_BINARY_PATTERN BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(adc0>>8),BYTE_TO_BINARY(adc0));
+    serial_puts(text+6);
+
+    _delay_ms(1000); 
+
   }
 
   return(0);
