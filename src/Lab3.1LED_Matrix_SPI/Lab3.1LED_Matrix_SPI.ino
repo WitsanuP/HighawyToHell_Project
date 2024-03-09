@@ -1,0 +1,49 @@
+#define F_CPU 16000000UL
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "sumek.h"
+int main(void){
+  max7219_init();
+  while(1){
+    /*
+    for(int i = 0;i<=8;i++){
+      max7219_wr(i,0);
+    }
+    _delay_ms(200);
+    */
+    uint8_t text[][8]{
+      {0x7c, 0x7e, 0x63, 0x63, 0x7e, 0x7c, 0x60, 0x60},//P
+      {0x00, 0x00, 0x00, 0x3c, 0x66, 0x66, 0x66, 0x3c},//o
+      {0x00, 0x38, 0x18, 0x18, 0x18, 0x18, 0x18, 0x3c}//l
+    };
+    for(int j = 0;j<3;j++){
+      for(int i =0;i<8;i++){
+        max7219_wr(i+1,text[j][i]);
+      }
+      _delay_ms(2000);
+    }
+  }
+}
+/*
+max7219_wr(0x01, 0x7C);
+    max7219_wr(0x02, 0x7E);
+    max7219_wr(0x03, 0x63);
+    max7219_wr(0x04, 0x63);
+    max7219_wr(0x05, 0x7E);
+    max7219_wr(0x06, 0x7C);
+    max7219_wr(0x07, 0x60);
+    max7219_wr(0x08, 0x60);
+    _delay_ms(2000);
+_delay_ms(2000);
+    max7219_wr(0x01, 0x0f);
+    max7219_wr(0x02, 0xf0);
+    max7219_wr(0x03, 0x0f);
+    max7219_wr(0x04, 0xf0);
+    max7219_wr(0x05, 0x0f);
+    max7219_wr(0x06, 0xf0);
+    max7219_wr(0x07, 0x0f);
+    max7219_wr(0x08, 0xee);
+    _delay_ms(2000);
+
+*/
