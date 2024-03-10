@@ -37,7 +37,4 @@ void max7219_init(void){
   max7219_wr(0x0A, 15); //light intensity (0-15)
   max7219_wr(0x0B, 7); //scan limit: all digits ON
   max7219_wr(0x0C, 1); //turn ON MAX7219
-  for(int i =0;i<8;i++){
-    max7219_wr(i+1, 0x00);
-  }
 }
